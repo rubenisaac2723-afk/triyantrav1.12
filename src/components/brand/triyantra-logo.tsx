@@ -1,0 +1,1 @@
+export { TriYantraLogo } from "./TriYantraLogo";

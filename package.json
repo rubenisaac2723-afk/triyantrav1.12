@@ -1,0 +1,48 @@
+{
+  "name": "triyantrav1",
+  "version": "1.2.6",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1 --port 3001",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1 --port 3001",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types scripts/check.mjs && node --experimental-strip-types scripts/estimator-engine-check.mjs && node --experimental-strip-types scripts/orbit-geometry-check.mjs",
+    "test:estimator": "node scripts/f4-estimator-check.mjs",
+    "test:f5": "node scripts/f5-experience-check.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
+    "test:appearance": "node scripts/appearance-check.mjs",
+    "format": "prettier --write src scripts *.md *.json *.ts *.mjs",
+    "test:delivery": "node scripts/delivery-check.mjs",
+    "test:performance": "node scripts/performance-check.mjs",
+    "test:skills": "node scripts/skills-check.mjs"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@types/gsap": "^1.20.2",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "lottie-web": "^5.13.0",
+    "next": "^16.3.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.5.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@types/three": "^0.185.4",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.4",
+    "prettier": "^3.9.6",
+    "typescript": "^6.0.3"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  }
+}

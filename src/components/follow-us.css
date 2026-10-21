@@ -1,0 +1,187 @@
+/* Follow Us Social Group — compact inline icon row (integrated into the
+   footer brand column) and the standalone full-width section (legacy,
+   non-homepage pages).
+   Footer treatment is deliberately subordinate: small ghost icon chips,
+   one concise status line, no per-icon badges, no oversized controls. */
+
+.footer-follow {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.footer-follow-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--footer-accent, #7eb6ff);
+}
+
+.footer-follow-note {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--footer-chip-note, rgba(255, 255, 255, 0.5));
+  margin: 0;
+}
+
+.footer-follow .follow-us-links {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Standalone vector icons — clean footer presentation without pill background or border */
+.social-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--footer-accent, #7eb6ff);
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition:
+    color var(--duration-fast, 180ms) var(--ease-out, ease-out),
+    transform var(--duration-fast, 180ms) var(--ease-out, ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .social-button:hover,
+  .footer-social-link:hover {
+    color: var(--accent, #145aff);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: translateY(-2px);
+  }
+}
+
+.social-button:active,
+.footer-social-link:active {
+  transform: scale(0.94);
+}
+
+.social-button:focus-visible,
+.footer-social-link:focus-visible {
+  outline: 2px solid var(--accent, #145aff);
+  outline-offset: 2px;
+}
+
+/* Pending / Coming Soon State — honest, non-interactive icon chip.
+   Not a link and not a control: no pointer cursor, no press handling,
+   no RGB interaction, no button chrome and no hover that suggests
+   navigation. Deliberately quiet so it stays subordinate in the footer. */
+.social-pending {
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+  min-height: 34px;
+  min-width: 34px;
+  padding: 7px;
+  background: transparent;
+  border-color: var(--footer-chip-border, rgba(255, 255, 255, 0.12));
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: var(--footer-chip-note, rgba(232, 241, 255, 0.55));
+}
+
+.social-icon-svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+/* Standalone full-width section (legacy, non-homepage pages) */
+.follow-us-section {
+  width: 100%;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.follow-us-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.follow-us-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 460px;
+}
+
+.follow-us-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7eb6ff;
+}
+
+.follow-us-title {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.follow-us-desc {
+  font-size: 0.875rem;
+  color: #c2d2e6;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Social Buttons Row */
+.follow-us-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .footer-follow {
+    align-items: flex-start;
+  }
+  .footer-follow .follow-us-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .follow-us-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .follow-us-links {
+    width: 100%;
+  }
+  .social-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .social-pending {
+    min-height: 34px;
+    min-width: 34px;
+  }
+}

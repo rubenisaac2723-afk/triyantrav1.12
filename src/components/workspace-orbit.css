@@ -1,0 +1,281 @@
+/* Built Around Your Workspace — Compact Rotational Component
+   Sits inside the Device-as-a-Service band as a right-side illustration. */
+
+.workspace-orbit {
+  position: relative;
+
+  /* Centralized rotation properties */
+  --orbit-duration: 64s;
+  --orbit-node-size: 72px;
+  --orbit-border-opacity: 0.3;
+  --orbit-glow-opacity: 0.14;
+
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+.orbit-stage-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Subtle soft glow behind the ring (restrained depth) */
+.orbit-stage-glow {
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, var(--orbit-glow-opacity)),
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+/* SVG Connector Lines & Tracks */
+.orbit-svg-tracks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.orbit-track-circle {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.26);
+  stroke-width: 1;
+  stroke-dasharray: 1 6;
+  stroke-linecap: round;
+}
+
+.orbit-track-inner {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-width: 1;
+}
+
+.orbit-ray-line {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+
+/* Center Workspace Core */
+.orbit-center-core {
+  position: relative;
+  z-index: 5;
+  width: 36%;
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 12px 32px rgba(0, 12, 34, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px 14px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  user-select: none;
+}
+
+.center-core-title {
+  font-size: clamp(10px, 1.05vw, 12px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  max-width: 130px;
+}
+
+/* Rotating Ring */
+.orbit-nodes-ring {
+  position: absolute;
+  inset: 0;
+  animation: orbit-rotate var(--orbit-duration) linear infinite;
+  transform-origin: center center;
+}
+
+.orbit-stage-wrapper:hover .orbit-nodes-ring,
+.orbit-stage-wrapper:hover .orbit-node-card {
+  animation-play-state: paused;
+}
+
+/* Pause continuous rotation while offscreen */
+.workspace-orbit[data-inview="false"] .orbit-nodes-ring,
+.workspace-orbit[data-inview="false"] .orbit-node-card {
+  animation-play-state: paused;
+}
+
+@keyframes orbit-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Node placement anchors */
+.orbit-node-anchor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+/* Compact node cards */
+.orbit-node-card {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: orbit-counter-rotate var(--orbit-duration) linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--orbit-node-size);
+  max-width: 96px;
+  min-height: 30px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, var(--orbit-border-opacity));
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0, 12, 34, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+  outline: none;
+}
+
+.orbit-node-card:hover,
+.orbit-node-card:focus-visible {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 22px rgba(0, 12, 34, 0.28);
+}
+
+.orbit-node-card:focus-visible {
+  outline: 2px solid #7fd4f0;
+  outline-offset: 3px;
+}
+
+.node-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* Counter rotation keeps labels upright */
+@keyframes orbit-counter-rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+/* Reduced Motion: freeze rotation, keep layout */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-nodes-ring,
+  .orbit-node-card {
+    animation: none;
+  }
+}
+
+/* Mobile Simplified Flow (< 768px) */
+.orbit-mobile-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .workspace-orbit {
+    max-width: none;
+    aspect-ratio: auto;
+  }
+
+  .orbit-stage-wrapper {
+    display: none;
+  }
+
+  .orbit-mobile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .orbit-stage-glow {
+    display: none;
+  }
+
+  .orbit-mobile-eyebrow {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .orbit-mobile-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+
+  .orbit-mobile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 160px));
+    gap: 10px;
+    width: 100%;
+    max-width: 340px;
+    margin-top: 6px;
+  }
+
+  .orbit-mobile-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    min-height: 44px;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .orbit-mobile-chip:hover {
+    border-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .orbit-mobile-chip:focus-visible {
+    outline: 2px solid #7fd4f0;
+    outline-offset: 2px;
+  }
+}
